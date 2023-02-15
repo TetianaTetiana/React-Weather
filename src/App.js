@@ -68,7 +68,7 @@ function App() {
               </li>
             </ul>
         </div>
-        <p class="githublink">Coded by Tetiana Karpenko. Open-sourced on <a href="https://github.com/TetianaTetiana/WeatherApp/tree/weather-app">GitHub</a></p>
+        <p class="githublink">Coded by Tetiana Karpenko. Open-sourced on <a href="https://github.com/TetianaTetiana">GitHub</a></p>
     </div>
   );
 }
