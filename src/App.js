@@ -5,6 +5,7 @@ import './App.css';
 
 function App(props) {
   const [ready, setReady] = useState(false);
+  const [city, setCity] = useState(props.defaultCity);
   const [weatherData, setWeatherData] = useState({});
   const handleResp = (resp) => {
     console.log(resp.data);
@@ -22,12 +23,29 @@ function App(props) {
     setReady(true);
   }
 
+  const search = () => {
+    const apiKey = "33efe89f103feda08ec5412af8a983d6";
+    let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`;
+    axios.get(apiUrl).then(handleResp);
+  }
+const handleSubmit = (event) => {
+  event.preventDefault();
+  search();
+}
+const handleCityChange = (event) => {
+  setCity(event.target.value);
+}
+
   if(ready){
     return (
       <div className="App">
         <div className="top-row">
-          <form id="search-form" action="">
-              <input id="search-text-input" type="search" placeholder="Enter a city" />
+          <form id="search-form" action="" onSubmit={handleSubmit}>
+              <input
+              id="search-text-input"
+              type="search"
+              placeholder="Enter a city"
+              onChange={handleCityChange}/>
               <input className="submit" type="submit" value="Search" />
               <button className="real-temp">Current</button>
           </form>
@@ -87,14 +105,11 @@ function App(props) {
                 </li>
               </ul>
           </div>
-          <p className="githublink">Coded by Tetiana Karpenko. Open-sourced on <a href="https://github.com/TetianaTetiana">GitHub</a></p>
+          <p className="githublink">Coded by Tetiana Karpenko. Open-sourced on <a href="https://github.com/TetianaTetiana" target="_blank" rel="noreferrer">GitHub</a></p>
       </div>
     );
   }else{
-    const apiKey = "33efe89f103feda08ec5412af8a983d6";
-    let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${props.defaultCity}&units=metric&appid=${apiKey}`;
-    axios.get(apiUrl).then(handleResp);
-
+    search();
     return "Loading data..."
   }
 }
