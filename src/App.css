@@ -63,7 +63,7 @@ p{
     padding: 20px 20px 10px 20px;
     border-radius: 20px;
     width: 700px;
-    height: 500px;
+    height: 300px;/* --------------------- */
     color: var(--text-color);
     box-shadow: inset 2px 2px 12px  #c8d8ff;
 }
@@ -97,6 +97,7 @@ input:active,
     width: 70px;
     padding: 9px 0;
     cursor: pointer;
+    margin: 0 5px;
     transition: all .3s ease;
 }
 .temp {
@@ -209,7 +210,7 @@ h2
      text-align: center;
      font-size: 12px;
      text-shadow: none;
-     margin-top: 40px;
+     margin-top: 0px;/* 40 */
 }
 
 

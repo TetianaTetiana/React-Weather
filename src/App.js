@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import axios from "axios";
 import FormattedDate from './FormattedDate';
+import WeatherTemp from './WeatherTemp';
 import './App.css';
 
 function App(props) {
@@ -8,7 +9,7 @@ function App(props) {
   const [city, setCity] = useState(props.defaultCity);
   const [weatherData, setWeatherData] = useState({});
   const handleResp = (resp) => {
-    console.log(resp.data);
+    // console.log(resp.data);
     setWeatherData({
       time: "12:00",
       date: new Date(resp.data.dt * 1000),
@@ -49,11 +50,7 @@ const handleCityChange = (event) => {
               <input className="submit" type="submit" value="Search" />
               <button className="real-temp">Current</button>
           </form>
-            <div className="temp">
-              <p className="temperature">{Math.round(weatherData.temperature)}</p>
-              <span className="units celsium current"> °C </span>
-              <span className="units fahrenheit off"> °F </span>
-          </div>
+          <WeatherTemp celsius={weatherData.temperature}/>
         </div>
           <p className="weather-description">{weatherData.weatherDesc}</p>
           <div className="middle-row">
@@ -71,7 +68,7 @@ const handleCityChange = (event) => {
               </div>
               <img className="img" src={weatherData.iconUrl} alt={weatherData.description}></img>
           </div>
-          <div className="footer-row">
+          {/* <div className="footer-row">
               <ul className="list">
                 <li className="item">
                   <div>Mon</div>
@@ -104,7 +101,7 @@ const handleCityChange = (event) => {
                   <span>12°C</span>
                 </li>
               </ul>
-          </div>
+          </div> */}
           <p className="githublink">Coded by Tetiana Karpenko. Open-sourced on <a href="https://github.com/TetianaTetiana" target="_blank" rel="noreferrer">GitHub</a></p>
       </div>
     );
