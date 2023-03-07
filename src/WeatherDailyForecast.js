@@ -1,52 +1,30 @@
-import React from "react";
+import React, {useState} from "react";
 import './App.css';
 import axios from "axios";
+import WFDay from './WFDay';
 
 function WeatherDailyForecast(props) {
+    const [loaded, setLoaded] = useState(false);
+    const [forecast, setForecast] = useState(null);
+
     const handleResp = (resp) => {
         // console.log(resp.data);
+        setForecast(resp.data.daily);
+        setLoaded(true);
     }
 
-    let apiKey = 'b400ae3b711a616262d18b0ca2cbe78f';
-    let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${props.coordinates.lat}&lon=${props.coordinates.lon}&appid=${apiKey}&units=metric`;
-    axios.get(apiUrl).then(handleResp);
+    if(loaded){
+        // console.log(forecast);
+        return (
+            <WFDay data={forecast[0]}/>
+        )
+    }else{
+        let apiKey = '866a208a73eeff02182218e9441647a1';
+        let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${props.coordinates.lat}&lon=${props.coordinates.lon}&appid=${apiKey}&units=metric`;
+        axios.get(apiUrl).then(handleResp);
 
-    return (
-        <div className="footer-row">
-            <ul className="list">
-                <li className="item">
-                <div>Mon</div>
-                <p>🌤</p>
-                <span>10°C|</span>
-                <span>12°C</span>
-                </li>
-                <li className="item">
-                <div>Mon</div>
-                <p>🌤</p>
-                <span>10°C|</span>
-                <span>12°C</span>
-                </li>
-                <li className="item">
-                <div>Mon</div>
-                <p>🌤</p>
-                <span>10°C|</span>
-                <span>12°C</span>
-                </li>
-                <li className="item">
-                <div>Mon</div>
-                <p>🌤</p>
-                <span>10°C|</span>
-                <span>12°C</span>
-                </li>
-                <li className="item">
-                <div>Mon</div>
-                <p>🌤</p>
-                <span>10°C|</span>
-                <span>12°C</span>
-                </li>
-            </ul>
-        </div>
-    )
+        return null;
+    }
 }
 
 export default WeatherDailyForecast;
