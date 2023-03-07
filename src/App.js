@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import axios from "axios";
 import FormattedDate from './FormattedDate';
 import WeatherTemp from './WeatherTemp';
+import WeatherIcon from './WeatherIcon';
 import WeatherDailyForecast from './WeatherDailyForecast';
 import './App.css';
 
@@ -20,7 +21,7 @@ function App(props) {
       weatherDesc: resp.data.weather[0].description,
       wind: resp.data.wind.speed,
       city: resp.data.name,
-      iconUrl: `https://openweathermap.org/img/wn/${resp.data.weather[0].icon}@2x.png`,
+      icon: resp.data.weather[0].icon,
       description: resp.data.weather[0].description,
     })
     setReady(true);
@@ -69,7 +70,9 @@ const handleCityChange = (event) => {
                         humidity&nbsp;&nbsp;&nbsp;&nbsp;{weatherData.humidity}%<br />
                     </p>
                 </div>
-                <img className="img" src={weatherData.iconUrl} alt={weatherData.description}></img>
+                <div className="img">
+                    <WeatherIcon code={weatherData.icon} alt={weatherData.description} size={150}/>
+                </div>
             </div>
             <WeatherDailyForecast coordinates={weatherData.coord}/>
         </div>

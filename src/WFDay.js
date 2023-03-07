@@ -1,8 +1,8 @@
 import React from "react";
+import WeatherIcon from "./WeatherIcon";
 import './App.css';
 
 function WFDay(props){
-    const srcIcon = `https://openweathermap.org/img/wn/${props.data.weather[0].icon}@2x.png`;
     const Day = () => {
         let date = new Date(props.data.dt * 1000)
         let day = date.getDay();
@@ -23,7 +23,9 @@ function WFDay(props){
         <ul className="list">
             <li className="item">
                 <div>{Day()}</div>
-                <img src={srcIcon} alt={props.data.description} />
+                <div className="picture">
+                    <WeatherIcon code={props.data.weather[0].icon} size={40}/>
+                </div>
                 <span>{Math.round(props.data.temp.max)}° |</span>
                 <span> {Math.round(props.data.temp.min)}°</span>
             </li>
