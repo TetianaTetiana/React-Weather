@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import axios from "axios";
 import FormattedDate from './FormattedDate';
 import WeatherTemp from './WeatherTemp';
+import WeatherDailyForecast from './WeatherDailyForecast';
 import './App.css';
 
 function App(props) {
@@ -13,6 +14,7 @@ function App(props) {
     setWeatherData({
       time: "12:00",
       date: new Date(resp.data.dt * 1000),
+      coord: resp.data.coord,
       temperature: resp.data.main.temp,
       humidity: resp.data.main.humidity,
       weatherDesc: resp.data.weather[0].description,
@@ -39,70 +41,39 @@ const handleCityChange = (event) => {
 
   if(ready){
     return (
-      <div className="App">
-        <div className="top-row">
-          <form id="search-form" action="" onSubmit={handleSubmit}>
-              <input
-              id="search-text-input"
-              type="search"
-              placeholder="Enter a city"
-              onChange={handleCityChange}/>
-              <input className="submit" type="submit" value="Search" />
-              <button className="real-temp">Current</button>
-          </form>
-          <WeatherTemp celsius={weatherData.temperature}/>
-        </div>
-          <p className="weather-description">{weatherData.weatherDesc}</p>
-          <div className="middle-row">
-              <div className="content">
-                  <h1>
-                      {weatherData.city}
-                  </h1>
-                  < FormattedDate date={weatherData.date}/>
-                  <p className="wind">
-                      wind speed&nbsp;&nbsp;&nbsp;&nbsp;{weatherData.wind} m/s
-                  </p>
-                  <p className="features">
-                      humidity&nbsp;&nbsp;&nbsp;&nbsp;{weatherData.humidity}%<br />
-                  </p>
-              </div>
-              <img className="img" src={weatherData.iconUrl} alt={weatherData.description}></img>
+      <div>
+        <div className="App">
+          <div className="top-row">
+            <form id="search-form" action="" onSubmit={handleSubmit}>
+                <input
+                id="search-text-input"
+                type="search"
+                placeholder="Enter a city"
+                onChange={handleCityChange}/>
+                <input className="submit" type="submit" value="Search" />
+                <button className="real-temp">Current</button>
+            </form>
+            <WeatherTemp celsius={weatherData.temperature}/>
           </div>
-          {/* <div className="footer-row">
-              <ul className="list">
-                <li className="item">
-                  <div>Mon</div>
-                  <p>🌤</p>
-                  <span>10°C|</span>
-                  <span>12°C</span>
-                </li>
-                <li className="item">
-                  <div>Mon</div>
-                  <p>🌤</p>
-                  <span>10°C|</span>
-                  <span>12°C</span>
-                </li>
-                <li className="item">
-                  <div>Mon</div>
-                  <p>🌤</p>
-                  <span>10°C|</span>
-                  <span>12°C</span>
-                </li>
-                <li className="item">
-                  <div>Mon</div>
-                  <p>🌤</p>
-                  <span>10°C|</span>
-                  <span>12°C</span>
-                </li>
-                <li className="item">
-                  <div>Mon</div>
-                  <p>🌤</p>
-                  <span>10°C|</span>
-                  <span>12°C</span>
-                </li>
-              </ul>
-          </div> */}
-          <p className="githublink">Coded by Tetiana Karpenko. Open-sourced on <a href="https://github.com/TetianaTetiana" target="_blank" rel="noreferrer">GitHub</a></p>
+            <p className="weather-description">{weatherData.weatherDesc}</p>
+            <div className="middle-row">
+                <div className="content">
+                    <h1>
+                        {weatherData.city}
+                    </h1>
+                    < FormattedDate date={weatherData.date}/>
+                    <p className="wind">
+                        wind speed&nbsp;&nbsp;&nbsp;&nbsp;{weatherData.wind} m/s
+                    </p>
+                    <p className="features">
+                        humidity&nbsp;&nbsp;&nbsp;&nbsp;{weatherData.humidity}%<br />
+                    </p>
+                </div>
+                <img className="img" src={weatherData.iconUrl} alt={weatherData.description}></img>
+            </div>
+            <WeatherDailyForecast coordinates={weatherData.coord}/>
+        </div>
+        <p className="githublink">Coded by Tetiana Karpenko. Open-sourced on <a href="https://github.com/TetianaTetiana" target="_blank" rel="noreferrer">GitHub</a></p>
       </div>
     );
   }else{
