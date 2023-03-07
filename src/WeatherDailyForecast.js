@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import './App.css';
 import axios from "axios";
 import WFDay from './WFDay';
@@ -7,16 +7,26 @@ function WeatherDailyForecast(props) {
     const [loaded, setLoaded] = useState(false);
     const [forecast, setForecast] = useState(null);
 
-    const handleResp = (resp) => {
-        // console.log(resp.data);
-        setForecast(resp.data.daily);
-        setLoaded(true);
-    }
+useEffect(() => {
+    setLoaded(false);
+  }, [props.coordinates]);
+
+  function handleResp(resp) {
+    // console.log(resp.data);
+    setForecast(resp.data.daily);
+    setLoaded(true);
+  }
 
     if(loaded){
         // console.log(forecast);
         return (
-            <WFDay data={forecast[0]}/>
+            <div className="list">
+                <WFDay data={forecast[0]}/>
+                <WFDay data={forecast[1]}/>
+                <WFDay data={forecast[2]}/>
+                <WFDay data={forecast[3]}/>
+                <WFDay data={forecast[4]}/>
+            </div>
         )
     }else{
         let apiKey = '866a208a73eeff02182218e9441647a1';

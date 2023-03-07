@@ -51,7 +51,7 @@ const handleCityChange = (event) => {
                 placeholder="Enter a city"
                 onChange={handleCityChange}/>
                 <input className="submit" type="submit" value="Search" />
-                <button className="real-temp">Current</button>
+                {/* <button className="real-temp">Current</button> */}
             </form>
             <WeatherTemp celsius={weatherData.temperature}/>
           </div>
